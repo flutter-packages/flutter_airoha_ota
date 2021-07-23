@@ -1,0 +1,11 @@
+framework module Airoha1562 {
+  umbrella header "Airoha1562.h"
+
+  export *
+  module * { export * }
+}
+
+module Airoha1562.Swift {
+    header "Airoha1562-Swift.h"
+    requires objc
+}

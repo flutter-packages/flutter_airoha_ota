@@ -1,0 +1,1526 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4 effective-4.2 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -O -module-name Airoha1562
+import AVFoundation
+@_exported import Airoha1562
+import Compression
+import CoreBluetooth
+import CoreFoundation
+import Darwin
+import ExternalAccessory
+import Foundation
+import Swift
+import UIKit
+extension AB155x {
+  @objc public class FotaControl : ObjectiveC.NSObject, AirohaFOTAControl, ConnectivityModuleDelegate {
+    @objc public static let Inst: AB155x.FotaControl
+    @objc public func getDevice() -> AirohaDevice?
+    @objc public func getOtaConfig() -> RemoteOTAConfig
+    @objc public func setOtaConfig(remoteOTAConfig: RemoteOTAConfig)
+    public func getOTAStatus() -> AirohaOTAStatus
+    @objc public func getOTAStatus_Objc() -> AirohaOTAStatus_Objc
+    @objc public func getCurrentProgress() -> Swift.Int
+    @objc public func isProcessingRhoOrCommit() -> Swift.Bool
+    @objc public func requestDFUInfo(type: FotaSettings.FotaTarget) -> AirohaDFUInfo?
+    @objc public func requestROFSVersion(type: FotaSettings.FotaTarget = .Dual) -> AirohaROFSVersion?
+    @objc public func preTransferInit()
+    @objc public func startDataTransfer_Objc(fotaSettings: FotaSettings, listener: AirohaFOTAStatusListener_Objc) -> Swift.Bool
+    public func startDataTransfer(fotaSettings: FotaSettings, listener: AirohaFOTAStatusListener) -> Swift.Bool
+    public func startDataTransfer(dfuInfo: AirohaDFUInfo, listener: AirohaFOTAStatusListener) -> Swift.Bool
+    public func startDataTransfer(dfuInfo: AirohaDFUInfo, threshold: Swift.Int, allowBackground: Swift.Bool, listener: AirohaFOTAStatusListener) -> Swift.Bool
+    @objc public func stopDataTransfer() -> Swift.Bool
+    @objc public func postTransferCleanup()
+    @objc public func applyNewFirmware(threshold: Foundation.NSNumber? = nil) -> Swift.Bool
+    public func registerOTAStatusListener(listener: AirohaFOTAStatusListener)
+    public func unregisterOTAStatusListener(listener: AirohaFOTAStatusListener)
+    @objc public func registerOTAStatusListener_Objc(listener: AirohaFOTAStatusListener_Objc)
+    @objc public func unregisterOTAStatusListener_Objc(listener: AirohaFOTAStatusListener_Objc)
+    @objc public func onErrorReported(err_code: AirohaFotaError, err_msg: Swift.String)
+    @objc public func onFotaCompleted()
+    @objc public func onFotaCommitCompleted()
+    @objc public func onRoleSwitchCompleted()
+    @objc public func onCancelCompleted()
+    @objc public func bleFoundCharacteristic(peripheral: CoreBluetooth.CBPeripheral, charList: [CoreBluetooth.CBCharacteristic], discoverAllSupportedService: Swift.Bool)
+    @objc deinit
+  }
+}
+@objc public class AirohaMyBudsInfo : ObjectiveC.NSObject {
+  @objc public static let INVALID_STATUS: Swift.Int
+  @objc public static let OFF: Swift.Int
+  @objc public func getLeftBeeping() -> Swift.Int
+  @objc public func setLeftBeeping(leftBeeping: Swift.Int)
+  @objc public func getRightBeeping() -> Swift.Int
+  @objc public func setRightBeeping(rightBeeping: Swift.Int)
+  @objc public func getLeftLighting() -> Swift.Int
+  @objc public func setLeftLighting(leftLighting: Swift.Int)
+  @objc public func getRightLighting() -> Swift.Int
+  @objc public func setRightLighting(rightLighting: Swift.Int)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias Airoha1530 = AirohaLogger
+@objc public class AirohaLogger : ObjectiveC.NSObject {
+  public static let Inst: AirohaLogger
+  @objc public func initial(showDebuggingLog: Swift.Bool, onError: ((Swift.String) -> Swift.Void)? = nil)
+  @objc public func getFrameworkLogsPath() -> [Foundation.URL]
+  @objc public func setLog(log: Swift.String)
+  @objc public func copyLog()
+  @objc public func cleanLog()
+  @objc deinit
+}
+@objc public class AirohaEQPayload : ObjectiveC.NSObject {
+  @objc public func getIndex() -> Swift.Int
+  @objc public func setIndex(index: Swift.Int)
+  @objc public func getCalibration() -> Swift.Float
+  @objc public func setCalibration(calibration: Swift.Float)
+  @objc public func getSampleRate() -> SAMPLE_RATE
+  @objc public func setSampleRate(sampleRate: SAMPLE_RATE)
+  @objc public func getAllSampleRates_Objc() -> Foundation.NSArray?
+  public func getAllSampleRates() -> [SAMPLE_RATE]?
+  @objc public func setAllSampleRates_Objc(sampleRateArray: Foundation.NSArray)
+  public func setAllSampleRates(sampleRateArray: [SAMPLE_RATE])
+  @objc public func getLeftGain() -> Swift.Float
+  @objc public func setLeftGain(leftGain: Swift.Float)
+  @objc public func getRightGain() -> Swift.Float
+  @objc public func setRightGain(rightGain: Swift.Float)
+  @objc public func getBandCount() -> Swift.Float
+  @objc public func setBandCount(bandCount: Swift.Float)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc public func getIirParams() -> [AirohaEQPayload.EQIDParam]?
+  @objc public func setIirParams(iirParams: [AirohaEQPayload.EQIDParam])
+  @objc public class EQIDParam : ObjectiveC.NSObject {
+    @objc override dynamic public init()
+    @objc public init(bandType: Swift.Int, gainValue: Swift.Float, frequency: Swift.Float, qValue: Swift.Float)
+    @objc public func getBandType() -> Swift.Int
+    @objc public func setBandType(bandType: Swift.Int)
+    @objc public func getGainValue() -> Swift.Float
+    @objc public func setGainValue(gainValue: Swift.Float)
+    @objc public func getFrequency() -> Swift.Float
+    @objc public func setFrequency(frequency: Swift.Float)
+    @objc public func getQValue() -> Swift.Float
+    @objc public func setQValue(qValue: Swift.Float)
+    @objc override dynamic public var description: Swift.String {
+      @objc get
+    }
+    @objc deinit
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class CentralManagerDelegateWrapper : ObjectiveC.NSObject, CoreBluetooth.CBCentralManagerDelegate {
+  @objc public func centralManagerDidUpdateState(_ central: CoreBluetooth.CBCentralManager)
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, willRestoreState dict: [Swift.String : Any])
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, didDiscover peripheral: CoreBluetooth.CBPeripheral, advertisementData: [Swift.String : Any], rssi RSSI: Foundation.NSNumber)
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, didConnect peripheral: CoreBluetooth.CBPeripheral)
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, didFailToConnect peripheral: CoreBluetooth.CBPeripheral, error: Swift.Error?)
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, didDisconnectPeripheral peripheral: CoreBluetooth.CBPeripheral, error: Swift.Error?)
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, connectionEventDidOccur event: CoreBluetooth.CBConnectionEvent, for peripheral: CoreBluetooth.CBPeripheral)
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, didUpdateANCSAuthorizationFor peripheral: CoreBluetooth.CBPeripheral)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class PeripheralDelegateWrapper : ObjectiveC.NSObject, CoreBluetooth.CBPeripheralDelegate {
+  @objc public func peripheralDidUpdateName(_ peripheral: CoreBluetooth.CBPeripheral)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didModifyServices invalidatedServices: [CoreBluetooth.CBService])
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didReadRSSI RSSI: Foundation.NSNumber, error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didDiscoverServices error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didDiscoverIncludedServicesFor service: CoreBluetooth.CBService, error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didDiscoverCharacteristicsFor service: CoreBluetooth.CBService, error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didUpdateValueFor characteristic: CoreBluetooth.CBCharacteristic, error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didWriteValueFor characteristic: CoreBluetooth.CBCharacteristic, error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didUpdateNotificationStateFor characteristic: CoreBluetooth.CBCharacteristic, error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didDiscoverDescriptorsFor characteristic: CoreBluetooth.CBCharacteristic, error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didUpdateValueFor descriptor: CoreBluetooth.CBDescriptor, error: Swift.Error?)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didWriteValueFor descriptor: CoreBluetooth.CBDescriptor, error: Swift.Error?)
+  @objc public func peripheralIsReady(toSendWriteWithoutResponse peripheral: CoreBluetooth.CBPeripheral)
+  @available(iOS 11.0, *)
+  @objc public func peripheral(_ peripheral: CoreBluetooth.CBPeripheral, didOpen channel: CoreBluetooth.CBL2CAPChannel?, error: Swift.Error?)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum ChipType : Swift.Int {
+  case AB155x
+  case AB1562
+  case AB1568
+  case AB1562E = 11
+  public var name: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class AirohaSdkMgr : ObjectiveC.NSObject {
+  @objc public static let Inst: AirohaSdkMgr
+  @objc public func getChipType() -> ChipType
+  @objc public func isFotaRunning() -> Swift.Bool
+  @objc public func isRoleSwitching() -> Swift.Bool
+  @objc public func isPartnerExisting() -> Swift.Bool
+  @objc public func isAgentRightSideDevice() -> Swift.Bool
+  @objc public func getDeviceType() -> DeviceType
+  @objc public func getAirohaConnector() -> AirohaConnector
+  @objc public func getAirohaEQControl() -> AirohaEQControl
+  @objc public func getAirohaDeviceControl() -> AirohaDeviceControl
+  public func getAirohaFotaControl() -> AirohaFOTAControl
+  @objc public func getAirohaFotaControl_Objc() -> AirohaFOTAControl_Objc
+  @objc deinit
+}
+@objc public enum AirohaAudioChannel : Swift.Int {
+  case UNKNOWN = -1
+  case NONE_CHANNEL = 0
+  case STEREO_LEFT = 1
+  case STEREO_RIGHT = 2
+  public func getValue() -> Swift.Int
+  public func getName() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class AirohaOTAInfo : ObjectiveC.NSObject {
+  @objc public func getOtaChannel() -> AirohaOTAChannel
+  @objc public func setOtaChannel(otaChannel: AirohaOTAChannel)
+  public func getOtaStatus() -> AirohaOTAStatus
+  @objc public func getOtaStatus_Objc() -> AirohaOTAStatus_Objc
+  public func setOtaStatus(otaStatus: AirohaOTAStatus)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum AirohaOTAChannel : Swift.Int {
+  case CHANNEL_UNKNOWN = -1
+  case CHANNEL_APP = 0
+  case CHANNEL_GOOGLE_AI = 1
+  case CHANNEL_AMAZON_AI = 2
+  case CHANNEL_XIAOWEI_AI = 3
+  public func getValue() -> Swift.Int
+  public func getDescription() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class RemoteOTAConfig : ObjectiveC.NSObject {
+  @objc public func getPid() -> Swift.String
+  @objc public func setPid(pid: Swift.String)
+  @objc public func getVersion() -> Swift.String
+  @objc public func setVersion(version: Swift.String)
+  @objc public func getDownloadUrl() -> Swift.String
+  @objc public func setDownloadUrl(downloadUrl: Swift.String)
+  @objc public func getLocalPath() -> Swift.String
+  @objc public func setLocalPath(localPath: Swift.String)
+  @objc public func getCheckSum() -> Swift.String
+  @objc public func setCheckSum(checkSum: Swift.String)
+  @objc public func getWhatsNewTitle() -> Swift.String
+  @objc public func setWhatsNewTitle(whatsNewTitle: Swift.String)
+  @objc public func getWhatsNewContent() -> Swift.String
+  @objc public func setWhatsNewContent(whatsNewContent: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class AirohaAncSettings : ObjectiveC.NSObject {
+  @objc public enum AncMode : Swift.Int, Swift.CustomStringConvertible {
+    case Hybrid
+    case FF
+    case FB
+    public func getValue() -> Swift.Int
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc override dynamic public init()
+  @objc public func setFilter(filter: Swift.Int)
+  @objc public func setGain(gain: Swift.Double)
+  @objc public func getFilter() -> Swift.Int
+  @objc public func getGain() -> Swift.Double
+  @objc public func setAncGain(gain: Swift.Double)
+  @objc public func getAncGain() -> Swift.Double
+  @objc public func setPassthruGain(gain: Swift.Double)
+  @objc public func getPassthruGain() -> Swift.Double
+  @objc public func getAncMode() -> AirohaAncSettings.AncMode
+  @objc public func setAncMode(mode: AirohaAncSettings.AncMode)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public enum AirohaMessageID : Swift.Int {
+  case UNKNOWN = -1
+  case DEVICE_LIST_INFO = 1001
+  case DEVICE_NAME = 1002
+  case ANC_STATUS = 1003
+  case AUTO_PAUSE = 1004
+  case AUTO_POWER_OFF = 1005
+  case MULTI_AI_STATUS = 1006
+  case A2DP_STATUS = 1007
+  case FIND_ME_STATUS = 1008
+  case TWS_STATUS = 1009
+  case SEALING_STATUS = 1010
+  case GESTURE_STATUS = 1011
+  case SYNC_CRC_STATUS = 1012
+  case DEVICE_INFO = 1013
+  case BATTERY_STATUS = 1014
+  case IN_EAR_STATUS = 1015
+  case SMART_SWITCH_STATUS = 1016
+  case AUDIO_CHANNEL_STATUS = 1017
+  case TOUCH_STATUS = 1500
+  case SDK_INFO = 1501
+  case SHARE_MODE_STAUS = 1502
+  case FIRMWARE_STATUS = 1800
+  case ROFS_STATUS = 1801
+  case FOTA_STATUS = 2001
+  case PEQ_INFO = 3001
+  case RUNNING_EQ_STATUS = 3002
+  case COMBINED_EQ_STATUS = 3003
+  case REPLACE_EQ_STATUS = 3101
+  case RESET_EQ_STATUS = 3102
+  public func getValue() -> Swift.Int
+  public func getName() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol AirohaEQControl : AirohaBaseControl {
+  @objc func getAllEQSettings(listener: AirohaDeviceListener?)
+  @objc func getRunningEQSetting(listener: AirohaDeviceListener?)
+  @objc func setEQSetting(categoryId: Swift.Int, payload: AirohaEQPayload?, saveOrNot: Swift.Bool, listener: AirohaDeviceListener?)
+  @objc func replaceEQSetting(categoryIdFrom: Swift.Int, categoryIdTo: Swift.Int, listener: AirohaDeviceListener?)
+  @objc func resetEQSetting(presetCategoryId: Swift.Int, listener: AirohaDeviceListener?)
+}
+extension AirohaEQControl {
+  public func getAllEQSettings()
+  public func getRunningEQSetting()
+  public func setEQSetting(categoryId: Swift.Int, payload: AirohaEQPayload?, saveOrNot: Swift.Bool)
+  public func replaceEQSetting(categoryIdFrom: Swift.Int, categoryIdTo: Swift.Int)
+  public func resetEQSetting(presetCategoryId: Swift.Int)
+}
+extension AB155x {
+  @objc public class AirohaPEQControl : ObjectiveC.NSObject, AirohaEQControl {
+    @objc public static let Inst: AB155x.AirohaPEQControl
+    @objc public func getAllEQSettings(listener: AirohaDeviceListener? = nil)
+    @objc public func getRunningEQSetting(listener: AirohaDeviceListener? = nil)
+    @objc public func setEQSetting(categoryId: Swift.Int, payload: AirohaEQPayload?, saveOrNot: Swift.Bool, listener: AirohaDeviceListener? = nil)
+    @objc public func replaceEQSetting(categoryIdFrom: Swift.Int, categoryIdTo: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func resetEQSetting(presetCategoryId: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func registerGlobalListener(listener: AirohaDeviceListener)
+    @objc public func unregisterGlobalListener(listener: AirohaDeviceListener)
+    @objc deinit
+  }
+}
+extension AB1568 {
+  @objc public enum TWS_FOTA_FLOW : Swift.Int {
+    case _triggerRun
+    case fotaStart
+    case queryTransmitInterval
+    case queryDualFOTAState1
+    case getLELinkInfo
+    case setConnectInterval
+    case checkAgentBattery
+    case checkClientBattery
+    case getAgentFWVersion
+    case getClientFWVersion
+    case getEDRLinkInfo
+    case disconnectClassic
+    case setNormalPowerMode
+    case queryFOTAPartitionInfo
+    case getAgentFlashEraseStatus
+    case getAgentSHA2561
+    case getAgentSHA2562
+    case getClientFlashEraseStatus
+    case getClientSHA2561
+    case getClientSHA2562
+    case unlock
+    case unlockClient
+    case fotaInit
+    case erase
+    case write
+    case checkIntegrity
+    case checkIntegrityPartner
+    case state_CompleteIntegrityCheck_0311
+    case state_CompleteIntegrityCheck_0311_Dual
+    case queryDualFOTAState
+    case queryFOTAState
+    case count
+    case commit
+    case cancel
+    case roleSwitch
+    public var description: Swift.String {
+      get
+    }
+    public var simpleDescription: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+}
+extension AB1568 {
+  @objc public class AirohaPEQControl : ObjectiveC.NSObject, AirohaEQControl {
+    @objc public static let Inst: AB1568.AirohaPEQControl
+    @objc public func getAllEQSettings(listener: AirohaDeviceListener? = nil)
+    @objc public func getRunningEQSetting(listener: AirohaDeviceListener? = nil)
+    @objc public func setEQSetting(categoryId: Swift.Int, payload: AirohaEQPayload?, saveOrNot: Swift.Bool, listener: AirohaDeviceListener? = nil)
+    @objc public func replaceEQSetting(categoryIdFrom: Swift.Int, categoryIdTo: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func resetEQSetting(presetCategoryId: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func registerGlobalListener(listener: AirohaDeviceListener)
+    @objc public func unregisterGlobalListener(listener: AirohaDeviceListener)
+    @objc deinit
+  }
+}
+@objc public protocol ConnectivityModuleDelegate {
+  @objc func bleFoundCharacteristic(peripheral: CoreBluetooth.CBPeripheral, charList: [CoreBluetooth.CBCharacteristic], discoverAllSupportedService: Swift.Bool)
+  @objc optional func l2capOpenChannel(peripheral: CoreBluetooth.CBPeripheral, result: Swift.Bool)
+  @objc optional func iap2OpenChannel(session: ExternalAccessory.EASession, result: Swift.Bool)
+}
+@objc public class ConnectivityModule : ObjectiveC.NSObject {
+  @objc public static let Inst: ConnectivityModule
+  @objc public func registerListener(name: Swift.String, delegate: ConnectivityModuleDelegate)
+  @objc public func unregisterListener(name: Swift.String)
+  @objc deinit
+}
+@objc public class FotaSettings : ObjectiveC.NSObject {
+  @objc public enum FotaType : Swift.Int, Swift.CustomStringConvertible {
+    case Typical
+    case SpecialUpgrade
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public enum FotaTarget : Swift.Int, Swift.CustomStringConvertible {
+    case Single
+    case Dual
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public enum FotaMode : Swift.Int, Swift.CustomStringConvertible {
+    case Active
+    case Background
+    case Adaptive
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc convenience public init(fotaType: FotaSettings.FotaType = .Typical, fotaTarget: FotaSettings.FotaTarget = .Dual, binFilePath: Swift.String)
+  @objc public init(fotaType: FotaSettings.FotaType = .Typical, fotaTarget: FotaSettings.FotaTarget = .Dual, fotaMode: FotaSettings.FotaMode = .Active, leftBinFilePath: Swift.String, rightBinFilePath: Swift.String)
+  @objc public func getFotaType() -> FotaSettings.FotaType
+  @objc public func getRightBinFilePath() -> Swift.String
+  @objc public func getLeftBinFilePath() -> Swift.String
+  @objc public func getBatteryLevelThrd() -> Swift.Int
+  @objc public func setBatteryLevelThrd(_ batteryLevelThrd: Swift.Int)
+  @objc public func isBackgroundFota() -> Swift.Bool
+  @objc public func setBackgroundFota(_ backgroundFota: Swift.Bool)
+  @objc public func getFotaMode() -> FotaSettings.FotaMode
+  @objc public func setFotaMode(fotaMode: FotaSettings.FotaMode)
+  @objc public func getPartialReadFlashLengthKB() -> Swift.Int
+  @objc public func setPartialReadFlashLengthKB(partialReadFlashLengthKB: Swift.Int)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class AirohaDFUInfo : ObjectiveC.NSObject {
+  @objc public enum FotaStage : Swift.Int, Swift.CustomStringConvertible {
+    case ReadyToStart
+    case ReadyToApply
+    case NeedSpecialUpgrade
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public var isReadyToUpdateFileSystem: Swift.Bool {
+    get
+  }
+  @objc public var agentFwVersion: Swift.String {
+    get
+  }
+  @objc public var partnerFwVersion: Swift.String {
+    get
+  }
+  @objc public var isAgentRightChannel: Swift.Bool {
+    get
+  }
+  @objc public var isPartnerRightChannel: Swift.Bool {
+    get
+  }
+  @objc public enum FlashSize : Swift.Int {
+    case FLASH_2M
+    case FLASH_4M
+    case UNKNOWN
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc override dynamic public init()
+  @objc public init(fotaState: Swift.UInt16, fwVersion: Swift.String, flashSize: AirohaDFUInfo.FlashSize, isReadyToUpdateFileSystem: Swift.Bool)
+  @available(*, deprecated, message: "Please use getFwVersion instead")
+  @objc public func getVersion() -> Swift.String
+  @objc public func getFwVersion() -> Swift.String
+  @objc public func getFlashSize() -> AirohaDFUInfo.FlashSize
+  @objc public func copyFrom(_ from: AirohaDFUInfo)
+  @objc public func reset()
+  @objc deinit
+}
+@objc public class AirohaROFSVersion : ObjectiveC.NSObject {
+  @objc public var agentRofsVersion: Swift.String {
+    get
+  }
+  @objc public var partnerRofsVersion: Swift.String {
+    get
+  }
+  @objc override dynamic public init()
+  @objc public func getFsVersion() -> Swift.String
+  @objc public func copyFrom(_ from: AirohaROFSVersion)
+  @objc public func reset()
+  @objc deinit
+}
+@objc public protocol AirohaDeviceControl : AirohaBaseControl {
+  @objc func getDeviceInfo(listener: AirohaDeviceListener?)
+  @objc func setDeviceName(name: Swift.String, listener: AirohaDeviceListener?)
+  @objc func getAncSetting(listener: AirohaDeviceListener?)
+  @objc func setAncSetting(anc: AirohaAncSettings, saveOrNot: Swift.Bool, listener: AirohaDeviceListener?)
+  @objc func getAutoPlayPauseStatus(listener: AirohaDeviceListener?)
+  @objc func setAutoPlayPauseStatus(enableOrNot: Swift.Bool, listener: AirohaDeviceListener?)
+  @objc func getAutoPowerOffStatus(listener: AirohaDeviceListener?)
+  @objc func setAutoPowerOffStatus(autoPowerOff: Swift.Int, listener: AirohaDeviceListener?)
+  @objc func getMultiAIStatus(listener: AirohaDeviceListener?)
+  @objc func setMultiAIStatus(ai: Swift.Int, listener: AirohaDeviceListener?)
+  @objc func getFindMyBuds(listener: AirohaDeviceListener?)
+  @objc func setFindMyBuds(myBudsInfo: AirohaMyBudsInfo, listener: AirohaDeviceListener?)
+  @objc func getGestureStatus(gestureId: Swift.Int, listener: AirohaDeviceListener?)
+  @objc func setGestureStatus(gestureInfoList: [AirohaGestureInfo], listener: AirohaDeviceListener?)
+  @objc func resetGestureStatus(gesture: Swift.Int, listener: AirohaDeviceListener?)
+  @objc func getRunningOTAInfo(listener: AirohaDeviceListener?)
+  @objc func getTwsConnectStatus(listener: AirohaDeviceListener?)
+  @objc func getSealingStatus(listener: AirohaDeviceListener?)
+  @objc func getBatteryInfo(listener: AirohaDeviceListener?)
+  @objc func getFirmwareVer(listener: AirohaDeviceListener?)
+  @objc func getSmartSwitchStatus(listener: AirohaDeviceListener?)
+  @objc func setSmartSwitchStatus(musicSettings: Swift.Int, listener: AirohaDeviceListener?)
+  @objc func getTouchStatus(listener: AirohaDeviceListener?)
+  @objc func setTouchStatus(touchOnOff: Swift.Int, listener: AirohaDeviceListener?)
+  @objc func getShareModeState(listener: AirohaDeviceListener?)
+  @objc func setShareMode(shareModeOnOff: Swift.Int, listener: AirohaDeviceListener?)
+}
+extension AirohaDeviceControl {
+  public func getDeviceInfo()
+  public func setDeviceName(name: Swift.String)
+  public func getAncSetting()
+  public func setAncSetting(anc: AirohaAncSettings, saveOrNot: Swift.Bool)
+  public func getAutoPlayPauseStatus()
+  public func setAutoPlayPauseStatus(enableOrNot: Swift.Bool)
+  public func getAutoPowerOffStatus()
+  public func setAutoPowerOffStatus(autoPowerOff: Swift.Int)
+  public func getMultiAIStatus()
+  public func setMultiAIStatus(ai: Swift.Int)
+  public func getFindMyBuds()
+  public func setFindMyBuds(myBudsInfo: AirohaMyBudsInfo)
+  public func getGestureStatus(gestureId: Swift.Int)
+  public func setGestureStatus(gestureInfoList: [AirohaGestureInfo])
+  public func resetGestureStatus(gesture: Swift.Int)
+  public func getRunningOTAInfo()
+  public func getTwsConnectStatus()
+  public func getSealingStatus()
+  public func getBatteryInfo()
+  public func getFirmwareVer()
+  public func getSmartSwitchStatus()
+  public func setSmartSwitchStatus(musicSettings: Swift.Int)
+  public func getTouchStatus()
+  public func setTouchStatus(touchOnOff: Swift.Int)
+  public func getShareModeState()
+  public func setShareMode(shareModeOnOff: Swift.Int)
+}
+@objc public protocol AirohaBaseControl {
+  @objc func registerGlobalListener(listener: AirohaDeviceListener)
+  @objc func unregisterGlobalListener(listener: AirohaDeviceListener)
+}
+@objc public enum AirohaOTAStatus_Objc : Swift.Int, Swift.CustomStringConvertible {
+  case STATUS_UNKNOWN = -1
+  case STATUS_STARTED
+  case STATUS_CANCELED
+  case STATUS_FAILED
+  case STATUS_SUCCEED
+  case STATUS_REBOOT
+  case STATUS_READY_TO_UPDATE_FILESYSTEM
+  case STATUS_AUTO_REBOOT
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum AirohaOTAStatus : Swift.CustomStringConvertible, Swift.Equatable {
+  case STATUS_UNKNOWN
+  case STATUS_STARTED
+  case STATUS_CANCELED
+  case STATUS_FAILED(AirohaFotaError)
+  case STATUS_SUCCEED
+  case STATUS_REBOOT
+  case STATUS_READY_TO_UPDATE_FILESYSTEM
+  case STATUS_AUTO_REBOOT
+  public var description: Swift.String {
+    get
+  }
+  public var value: Swift.Int {
+    get
+  }
+  public static func == (lhs: AirohaOTAStatus, rhs: AirohaOTAStatus) -> Swift.Bool
+}
+@objc public protocol AirohaDeviceListener {
+  @objc func onRead(code: StatusCode, msg: AirohaBaseMsg)
+  @objc func onChanged(code: StatusCode, msg: AirohaBaseMsg)
+}
+@objc public class AirohaBatteryInfo : ObjectiveC.NSObject {
+  @objc public func getMasterLevel() -> Swift.Int
+  @objc public func setMasterLevel(masterLevel: Swift.Int)
+  @objc public func getSlaveLevel() -> Swift.Int
+  @objc public func setSlaveLevel(slaveLevel: Swift.Int)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc public func toString() -> Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum AirohaConnectStatus : Swift.Int, Swift.CustomStringConvertible {
+  case connecting
+  case connected
+  case disconnecting
+  case disconnected
+  case connectFail
+  case connectTimeout
+  case onInitialized
+  case initializationFail
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class AirohaConnector : ObjectiveC.NSObject {
+  @objc public static let Inst: AirohaConnector
+  @objc final public let managerDelegateWrapper: CentralManagerDelegateWrapper
+  @objc final public let peripheralDelegateWrapper: PeripheralDelegateWrapper
+  @objc public var manager: CoreBluetooth.CBCentralManager {
+    @objc get
+    @objc set
+  }
+  @objc public func getSupportedProtocols() -> Swift.Int
+  @objc public func isProtocolSupported(deviceProtocol: AirohaDeviceProtocol) -> Swift.Bool
+  @objc public func getDevice() -> AirohaDevice?
+  @objc public func connect(device: AirohaDevice)
+  @objc public func connectUnmanaged(device: AirohaDevice)
+  @objc public func connect(device: AirohaDevice, connectionListener: AirohaConnectionListener)
+  @objc public func connectUnmanaged(device: AirohaDevice, connectionListener: AirohaConnectionListener)
+  @objc public func disconnect()
+  @objc public func registerConnectionListener(connectionListener: AirohaConnectionListener)
+  @objc public func unregisterConnectionListener(connectionListener: AirohaConnectionListener)
+  @objc public func sendCustomCommand(charUUID: Swift.String = "43484152-2DAB-3241-6972-6F6861424C45", data: Foundation.Data)
+  @objc public func getClassicMacAddr() -> [Swift.String]?
+  @objc deinit
+}
+@objc public protocol AirohaConnectionListener {
+  @objc func onStatusChanged(status: Swift.Int)
+  @objc func onDataReceived(deviceMessage: AirohaBaseMsg)
+  @objc optional func onDataReceived(rawData: Foundation.Data)
+}
+@objc public protocol AirohaFOTAStatusListener_Objc {
+  @objc optional func onOTAStatusChanged(newStatus: AirohaOTAStatus_Objc, error: AirohaFotaError)
+  @objc func onTransferProgressChanged(progress: Swift.Int)
+  @objc func onProgressStageChanged(current_stage: Swift.String)
+}
+public protocol AirohaFOTAStatusListener : AirohaFOTAStatusListener_Objc {
+  func onOTAStatusChanged(newStatus: AirohaOTAStatus)
+}
+@objc public enum SAMPLE_RATE : Swift.UInt8, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case SR32 = 0x00
+  case SR44_1 = 0x01
+  case SR48 = 0x02
+  case SR16 = 0x03
+  case SR08 = 0x04
+  case SR88_2 = 0x05
+  case SR96 = 0x06
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.UInt8)
+  public typealias AllCases = [SAMPLE_RATE]
+  public typealias RawValue = Swift.UInt8
+  public static var allCases: [SAMPLE_RATE] {
+    get
+  }
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public class AirohaBaseMsg : ObjectiveC.NSObject {
+  @objc public init(_ id: AirohaMessageID, _ content: ObjectiveC.NSObject, _ push: Swift.Bool = false)
+  @objc public func getMsgID() -> AirohaMessageID
+  @objc public func getMsgContent() -> ObjectiveC.NSObject
+  @objc public func isPush() -> Swift.Bool
+  @objc public func setPush(push: Swift.Bool)
+  @objc public func setMessageId(messageId: AirohaMessageID)
+  @objc public func setMsgContent(msgContent: ObjectiveC.NSObject)
+  @objc override dynamic public init()
+  @objc deinit
+}
+open class AirohaZipFileLogDestination : XCGBaseLogDestination {
+  open var logQueue: Dispatch.DispatchQueue?
+  open var keepZipNum: Swift.Int
+  open var fileThld: Swift.Int
+  public init(owner: XCGLogger, writeToFile: Swift.AnyObject, identifier: Swift.String = "", logQueue: Dispatch.DispatchQueue?)
+  @objc deinit
+  override open func output(_ logDetails: XCGLogDetails, text: Swift.String)
+  override public init(owner: XCGLogger, identifier: Swift.String = super)
+}
+extension XCGLogger {
+  open func setup_m(_ logLevel: XCGLogger.LogLevel = .debug, showLogIdentifier: Swift.Bool = false, showFunctionName: Swift.Bool = true, showThreadName: Swift.Bool = false, showLogLevel: Swift.Bool = true, showFileNames: Swift.Bool = true, showLineNumbers: Swift.Bool = true, showDate: Swift.Bool = true, writeToFile: Swift.AnyObject? = nil, fileLogLevel: XCGLogger.LogLevel? = nil)
+}
+infix operator <-! : AdditionPrecedence
+@objc public enum AirohaDeviceRole : Swift.Int {
+  case UNKNOWN
+  case AGENT
+  case PARTNER
+  public func getValue() -> Swift.Int
+  public func getName() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct XCGLogDetails {
+  public var logLevel: XCGLogger.LogLevel
+  public var date: Foundation.Date
+  public var logMessage: Swift.String
+  public var functionName: Swift.String
+  public var fileName: Swift.String
+  public var lineNumber: Swift.Int
+  public init(logLevel: XCGLogger.LogLevel, date: Foundation.Date, logMessage: Swift.String, functionName: Swift.String, fileName: Swift.String, lineNumber: Swift.Int)
+}
+public protocol XCGLogDestinationProtocol : Swift.CustomDebugStringConvertible {
+  var owner: XCGLogger { get set }
+  var identifier: Swift.String { get set }
+  var outputLogLevel: XCGLogger.LogLevel { get set }
+  func processLogDetails(_ logDetails: XCGLogDetails)
+  func processInternalLogDetails(_ logDetails: XCGLogDetails)
+  func isEnabledForLogLevel(_ logLevel: XCGLogger.LogLevel) -> Swift.Bool
+}
+open class XCGBaseLogDestination : XCGLogDestinationProtocol, Swift.CustomDebugStringConvertible {
+  open var owner: XCGLogger
+  open var identifier: Swift.String
+  open var outputLogLevel: XCGLogger.LogLevel
+  open var showLogIdentifier: Swift.Bool
+  open var showFunctionName: Swift.Bool
+  open var showThreadName: Swift.Bool
+  open var showFileName: Swift.Bool
+  open var showLineNumber: Swift.Bool
+  open var showLogLevel: Swift.Bool
+  open var showDate: Swift.Bool
+  open var debugDescription: Swift.String {
+    get
+  }
+  public init(owner: XCGLogger, identifier: Swift.String = "")
+  open func processLogDetails(_ logDetails: XCGLogDetails)
+  open func processInternalLogDetails(_ logDetails: XCGLogDetails)
+  open func isEnabledForLogLevel(_ logLevel: XCGLogger.LogLevel) -> Swift.Bool
+  open func output(_ logDetails: XCGLogDetails, text: Swift.String)
+  @objc deinit
+}
+open class XCGConsoleLogDestination : XCGBaseLogDestination {
+  open var logQueue: Dispatch.DispatchQueue?
+  open var xcodeColors: [XCGLogger.LogLevel : XCGLogger.XcodeColor]?
+  override open func output(_ logDetails: XCGLogDetails, text: Swift.String)
+  override public init(owner: XCGLogger, identifier: Swift.String = super)
+  @objc deinit
+}
+open class XCGNSLogDestination : XCGBaseLogDestination {
+  open var logQueue: Dispatch.DispatchQueue?
+  open var xcodeColors: [XCGLogger.LogLevel : XCGLogger.XcodeColor]?
+  override open var showDate: Swift.Bool {
+    get
+    set
+  }
+  override open func output(_ logDetails: XCGLogDetails, text: Swift.String)
+  override public init(owner: XCGLogger, identifier: Swift.String = super)
+  @objc deinit
+}
+open class XCGFileLogDestination : XCGBaseLogDestination {
+  open var logQueue: Dispatch.DispatchQueue?
+  public init(owner: XCGLogger, writeToFile: Swift.AnyObject, identifier: Swift.String = "")
+  @objc deinit
+  override open func output(_ logDetails: XCGLogDetails, text: Swift.String)
+  override public init(owner: XCGLogger, identifier: Swift.String = super)
+}
+open class XCGLogger : Swift.CustomDebugStringConvertible {
+  public struct Constants {
+    public static let defaultInstanceIdentifier: Swift.String
+    public static let baseConsoleLogDestinationIdentifier: Swift.String
+    public static let nslogDestinationIdentifier: Swift.String
+    public static let baseFileLogDestinationIdentifier: Swift.String
+    public static let logQueueIdentifier: Swift.String
+    public static let nsdataFormatterCacheIdentifier: Swift.String
+    public static let versionString: Swift.String
+  }
+  public typealias constants = XCGLogger.Constants
+  public enum LogLevel : Swift.Int, Swift.Comparable, Swift.CustomStringConvertible {
+    case verbose
+    case debug
+    case info
+    case warning
+    case error
+    case severe
+    case none
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public struct XcodeColor {
+    public static let escape: Swift.String
+    public static let resetFg: Swift.String
+    public static let resetBg: Swift.String
+    public static let reset: Swift.String
+    public var fg: (Swift.Int, Swift.Int, Swift.Int)?
+    public var bg: (Swift.Int, Swift.Int, Swift.Int)?
+    public func format() -> Swift.String
+    public init(fg: (Swift.Int, Swift.Int, Swift.Int)? = nil, bg: (Swift.Int, Swift.Int, Swift.Int)? = nil)
+    public init(fg: UIKit.UIColor, bg: UIKit.UIColor? = nil)
+    public static let red: XCGLogger.XcodeColor
+    public static let green: XCGLogger.XcodeColor
+    public static let blue: XCGLogger.XcodeColor
+    public static let black: XCGLogger.XcodeColor
+    public static let white: XCGLogger.XcodeColor
+    public static let lightGrey: XCGLogger.XcodeColor
+    public static let darkGrey: XCGLogger.XcodeColor
+    public static let orange: XCGLogger.XcodeColor
+    public static let whiteOnRed: XCGLogger.XcodeColor
+    public static let darkGreen: XCGLogger.XcodeColor
+  }
+  open var identifier: Swift.String
+  open var outputLogLevel: XCGLogger.LogLevel {
+    get
+    set
+  }
+  open var xcodeColorsEnabled: Swift.Bool
+  open var xcodeColors: [XCGLogger.LogLevel : XCGLogger.XcodeColor]
+  open class var logQueue: Dispatch.DispatchQueue {
+    get
+  }
+  open var dateFormatter: Foundation.DateFormatter? {
+    get
+    set
+  }
+  open var logDestinations: [XCGLogDestinationProtocol]
+  public init(identifier: Swift.String = "", includeDefaultDestinations: Swift.Bool = true)
+  open class func defaultInstance() -> XCGLogger
+  open class func setup(_ logLevel: XCGLogger.LogLevel = .debug, showLogIdentifier: Swift.Bool = false, showFunctionName: Swift.Bool = true, showThreadName: Swift.Bool = false, showLogLevel: Swift.Bool = true, showFileNames: Swift.Bool = true, showLineNumbers: Swift.Bool = true, showDate: Swift.Bool = true, writeToFile: Swift.AnyObject? = nil, fileLogLevel: XCGLogger.LogLevel? = nil)
+  open func setup(_ logLevel: XCGLogger.LogLevel = .debug, showLogIdentifier: Swift.Bool = false, showFunctionName: Swift.Bool = true, showThreadName: Swift.Bool = false, showLogLevel: Swift.Bool = true, showFileNames: Swift.Bool = true, showLineNumbers: Swift.Bool = true, showDate: Swift.Bool = true, writeToFile: Swift.AnyObject? = nil, fileLogLevel: XCGLogger.LogLevel? = nil)
+  open class func logln(_ closure: @autoclosure @escaping () -> Swift.String?, logLevel: XCGLogger.LogLevel = .debug, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open class func logln(_ logLevel: XCGLogger.LogLevel = .debug, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open func logln(_ closure: @autoclosure @escaping () -> Swift.String?, logLevel: XCGLogger.LogLevel = .debug, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open func logln(_ logLevel: XCGLogger.LogLevel = .debug, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open class func exec(_ logLevel: XCGLogger.LogLevel = .debug, closure: () -> () = {})
+  open func exec(_ logLevel: XCGLogger.LogLevel = .debug, closure: () -> () = {})
+  open func logAppDetails(_ selectedLogDestination: XCGLogDestinationProtocol? = nil)
+  open class func verbose(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open class func verbose(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open func verbose(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open func verbose(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open class func debug(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open class func debug(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open func debug(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open func debug(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open class func info(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open class func info(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open func info(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open func info(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open class func warning(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open class func warning(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open func warning(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open func warning(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open class func error(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open class func error(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open func error(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open func error(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open class func severe(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open class func severe(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open func severe(_ closure: @autoclosure @escaping () -> Swift.String?, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  open func severe(_ functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line, closure: () -> Swift.String?)
+  open class func verboseExec(_ closure: () -> () = {})
+  open func verboseExec(_ closure: () -> () = {})
+  open class func debugExec(_ closure: () -> () = {})
+  open func debugExec(_ closure: () -> () = {})
+  open class func infoExec(_ closure: () -> () = {})
+  open func infoExec(_ closure: () -> () = {})
+  open class func warningExec(_ closure: () -> () = {})
+  open func warningExec(_ closure: () -> () = {})
+  open class func errorExec(_ closure: () -> () = {})
+  open func errorExec(_ closure: () -> () = {})
+  open class func severeExec(_ closure: () -> () = {})
+  open func severeExec(_ closure: () -> () = {})
+  open func isEnabledForLogLevel(_ logLevel: XCGLogger.LogLevel) -> Swift.Bool
+  open func logDestination(_ identifier: Swift.String) -> XCGLogDestinationProtocol?
+  open func addLogDestination(_ logDestination: XCGLogDestinationProtocol) -> Swift.Bool
+  open func removeLogDestination(_ logDestination: XCGLogDestinationProtocol)
+  open func removeLogDestination(_ identifier: Swift.String)
+  open var debugDescription: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public func < (lhs: XCGLogger.LogLevel, rhs: XCGLogger.LogLevel) -> Swift.Bool
+@objc public class AirohaGestureMsg : AirohaBaseMsg {
+  @objc public init(gestureInfoList: [AirohaGestureInfo])
+  @objc override public func getMsgID() -> AirohaMessageID
+  @objc override public func getMsgContent() -> Foundation.NSArray
+  @objc override public init(_ id: AirohaMessageID, _ content: ObjectiveC.NSObject, _ push: Swift.Bool = super)
+  @objc deinit
+}
+@objc public enum AirohaDeviceProtocol : Swift.Int {
+  case UNKNOWN = 0x0
+  case BLE = 0x00000001
+  case GATT_BR_EDR = 0x00100000
+  case IAP2 = 0x01000000
+  public func getValue() -> Swift.Int
+  public func getName() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class AirohaAncStatusMsg : AirohaBaseMsg {
+  @objc public init(ancSettingsList: [AirohaAncSettings])
+  @objc override public func getMsgID() -> AirohaMessageID
+  @objc override public func getMsgContent() -> Foundation.NSArray
+  @objc override public init(_ id: AirohaMessageID, _ content: ObjectiveC.NSObject, _ push: Swift.Bool = super)
+  @objc deinit
+}
+@objc public class AirohaServices : ObjectiveC.NSObject {
+  @objc public static let Inst: AirohaServices
+  @objc public func getScanServiceUUIDs() -> [CoreBluetooth.CBUUID]?
+  @objc public func getCommandServiceUUIDString() -> Swift.String
+  @objc public func getTxCharacteristicUUIDString() -> Swift.String
+  @objc public func getRxCharacteristicUUIDString() -> Swift.String
+  @objc public func setServiceCharacteristicUUIDs(serviceUUID: CoreBluetooth.CBUUID, writeCharacteristicUUID: CoreBluetooth.CBUUID, notifyIndicationCharacteristicUUID: CoreBluetooth.CBUUID)
+  @objc public func setScanServiceUUIDs(uuids: [CoreBluetooth.CBUUID]?)
+  @objc public func addSupportServiceAndCharacteristic(serviceUUID: Swift.String, charUUID: Swift.String)
+  @objc deinit
+}
+public typealias AB155xDeviceControl = AB155x.AiroDeviceControl
+extension AB155x {
+  @objc public class AiroDeviceControl : ObjectiveC.NSObject, AirohaDeviceControl {
+    @objc public func getDeviceInfo(listener: AirohaDeviceListener? = nil)
+    @objc public func setDeviceName(name: Swift.String, listener: AirohaDeviceListener? = nil)
+    @objc public func getAncSetting(listener: AirohaDeviceListener? = nil)
+    @objc public func setAncSetting(anc: AirohaAncSettings, saveOrNot: Swift.Bool, listener: AirohaDeviceListener? = nil)
+    @objc public func getAutoPlayPauseStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setAutoPlayPauseStatus(enableOrNot: Swift.Bool, listener: AirohaDeviceListener? = nil)
+    @objc public func getAutoPowerOffStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setAutoPowerOffStatus(autoPowerOff: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getMultiAIStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setMultiAIStatus(ai: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getFindMyBuds(listener: AirohaDeviceListener? = nil)
+    @objc public func setFindMyBuds(myBudsInfo: AirohaMyBudsInfo, listener: AirohaDeviceListener? = nil)
+    @objc public func getGestureStatus(gestureId: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func setGestureStatus(gestureInfoList: [AirohaGestureInfo], listener: AirohaDeviceListener? = nil)
+    @objc public func resetGestureStatus(gesture: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getRunningOTAInfo(listener: AirohaDeviceListener? = nil)
+    @objc public func getTwsConnectStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func getSealingStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func getBatteryInfo(listener: AirohaDeviceListener? = nil)
+    @objc public func getFirmwareVer(listener: AirohaDeviceListener? = nil)
+    @objc public func getSmartSwitchStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setSmartSwitchStatus(musicSettings: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getTouchStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setTouchStatus(touchOnOff: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getSdkVersion(listener: AirohaDeviceListener? = nil)
+    @objc public func getShareModeState(listener: AirohaDeviceListener? = nil)
+    @objc public func setShareMode(shareModeOnOff: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func registerGlobalListener(listener: AirohaDeviceListener)
+    @objc public func unregisterGlobalListener(listener: AirohaDeviceListener)
+    @objc deinit
+  }
+}
+@objc public protocol AirohaFOTAControl_Objc {
+  @objc func getDevice() -> AirohaDevice?
+  @objc func getOtaConfig() -> RemoteOTAConfig
+  @objc func getOTAStatus_Objc() -> AirohaOTAStatus_Objc
+  @objc func getCurrentProgress() -> Swift.Int
+  @objc func requestDFUInfo(type: FotaSettings.FotaTarget) -> AirohaDFUInfo?
+  @objc func requestROFSVersion(type: FotaSettings.FotaTarget) -> AirohaROFSVersion?
+  @objc func preTransferInit()
+  @objc func startDataTransfer_Objc(fotaSettings: FotaSettings, listener: AirohaFOTAStatusListener_Objc) -> Swift.Bool
+  @objc func stopDataTransfer() -> Swift.Bool
+  @objc func postTransferCleanup()
+  @objc func applyNewFirmware(threshold: Foundation.NSNumber?) -> Swift.Bool
+  @objc func registerOTAStatusListener_Objc(listener: AirohaFOTAStatusListener_Objc)
+  @objc func unregisterOTAStatusListener_Objc(listener: AirohaFOTAStatusListener_Objc)
+  @objc func isProcessingRhoOrCommit() -> Swift.Bool
+}
+public protocol AirohaFOTAControl : AirohaFOTAControl_Objc {
+  func getOTAStatus() -> AirohaOTAStatus
+  func startDataTransfer(fotaSettings: FotaSettings, listener: AirohaFOTAStatusListener) -> Swift.Bool
+  @available(*, deprecated, message: "Please use startDataTransfer(fotaSettings: FotaSettings, listener: AirohaFOTAStatusListener) method instead")
+  func startDataTransfer(dfuInfo: AirohaDFUInfo, listener: AirohaFOTAStatusListener) -> Swift.Bool
+  @available(*, deprecated, message: "Please use startDataTransfer(fotaSettings: FotaSettings, listener: AirohaFOTAStatusListener) method instead")
+  func startDataTransfer(dfuInfo: AirohaDFUInfo, threshold: Swift.Int, allowBackground: Swift.Bool, listener: AirohaFOTAStatusListener) -> Swift.Bool
+  func registerOTAStatusListener(listener: AirohaFOTAStatusListener)
+  func unregisterOTAStatusListener(listener: AirohaFOTAStatusListener)
+}
+extension AirohaFOTAControl {
+  public func applyNewFirmware() -> Swift.Bool
+  public func applyNewFirmware(threshold: Swift.Int) -> Swift.Bool
+  public func requestDFUInfo() -> AirohaDFUInfo?
+}
+@objc public class AirohaDevice : ObjectiveC.NSObject {
+  @objc public func setDeviceVid(deviceVid: Swift.String)
+  @objc public func getDeviceVid() -> Swift.String
+  @objc public func setDevicePid(devicePid: Swift.String)
+  @objc public func getDevicePid() -> Swift.String
+  @objc public func setDeviceMid(deviceMid: Swift.String)
+  @objc public func getDeviceMid() -> Swift.String
+  @objc public func setDeviceMAC(deviceMAC: Swift.String)
+  @objc public func getDeviceMAC() -> Swift.String
+  @objc public func setBleAddress(bleAddress: Swift.String)
+  @objc public func getBleAddress() -> Swift.String
+  @objc public func setDeviceName(deviceName: Swift.String)
+  @objc public func getDeviceName() -> Swift.String
+  @objc public func setBatteryLevel(batteryLevel: Swift.Int)
+  @objc public func getBatteryLevel() -> Swift.Int
+  @objc public func setRole(role: AirohaDeviceRole)
+  @objc public func getRole() -> AirohaDeviceRole
+  @objc public func setConnectable(connectable: Swift.Bool)
+  @objc public func isConnectable() -> Swift.Bool
+  @objc public func setScannedTimestamp(scannedTimestamp: Swift.Int)
+  @objc public func getScannedTimestamp() -> Swift.CLong
+  @objc public func setCrc(crc: Swift.String)
+  @objc public func getCrc() -> Swift.String
+  @objc public func setPreferredProtocol(preferredProtocol: AirohaDeviceProtocol)
+  @objc public func getPreferredProtocol() -> AirohaDeviceProtocol
+  @objc public func setDeviceUid(deviceUid: Swift.String)
+  @objc public func getDeviceUid() -> Swift.String
+  @objc public func setFirmwareVer(firmwareVer: Swift.String)
+  @objc public func getFirmwareVer() -> Swift.String
+  @objc public func setChannel(channel: AirohaAudioChannel)
+  @objc public func getChannel() -> AirohaAudioChannel
+  @available(*, deprecated, message: "Please use setPeripheralID instead")
+  @objc public func setPeripheral(peripheral: CoreBluetooth.CBPeripheral?)
+  @available(*, deprecated, message: "Please use getPeripheralID instead")
+  @objc public func getPeripheral() -> CoreBluetooth.CBPeripheral?
+  @objc public func setPeripheralID(_ id: Foundation.UUID)
+  @objc public func getPeripheralID() -> Foundation.UUID
+  @objc public func setManufactuerData(data: Foundation.Data?)
+  @objc public func getManufactuerData() -> Foundation.Data?
+  @objc public func setEAAccessory(accessory: ExternalAccessory.EAAccessory?)
+  @objc public func getEAAccessory() -> ExternalAccessory.EAAccessory?
+  @objc public func setProtocolString(protocolString: Swift.String)
+  @objc public func getProtocolString() -> Swift.String
+  @objc public func setMtuSize(mtuSize: Swift.Int)
+  @objc public func getMtuSize() -> Swift.Int
+  @objc override dynamic public func isEqual(_ other: (Any)?) -> Swift.Bool
+  @objc override dynamic public var hash: Swift.Int {
+    @objc get
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension Data {
+}
+public struct AB155x {
+}
+@objc public class AirohaShareModeInfo : ObjectiveC.NSObject {
+  @objc public enum ShareModeState : Swift.Int, Swift.CustomStringConvertible {
+    case STATE_SET_SUCCESS = -1
+    case STATE_NORMAL = 0
+    case STATE_PREPAIRING = 1
+    case STATE_SHARING = 2
+    case STATE_LEAVING = 3
+    public func getValue() -> Swift.Int
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public init(state: AirohaShareModeInfo.ShareModeState)
+  @objc public func getShareModeState() -> AirohaShareModeInfo.ShareModeState
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum AirohaFotaError : Swift.Int, Swift.CustomStringConvertible {
+  case success
+  case timeout
+  case getResponseFail
+  case generateCmdFail
+  case lockCmdProxyFail
+  case errorStatus
+  case binFileInvalid
+  case clientBinFileInvalid
+  case nvrFileInvalid
+  case fotaPackageSizeInvalid
+  case batteryTooLow
+  case clientIsNotExist
+  case resumeTableMissing
+  case cmdResponseUnexpected
+  case getFotaInfoFail
+  case getRofsVersionFail
+  case peripheralConnectFail
+  case peripheralDisconnected
+  case peripheralConnectionTimeout
+  case wrongActions
+  case roleSwitchFail
+  case commitFail
+  case resetFail
+  case verifyStateFail
+  case cancelFotaFail
+  case fotaCanceled
+  case fotaCanceled_BytDevice_NoReason
+  case fotaCanceled_ByDevice_UserTriggerCancel
+  case fotaCanceled_ByDevice_Fail
+  case fotaCanceled_ByDevice_Timeout
+  case fotaCanceled_ByDevice_PartnerLoss
+  case fotaCanceled_ByDevice_ReasonNotDefined
+  case bluetoothIsNotPowerOn
+  case disableAutoBootAfterResetFail
+  case fileSystemSha256NotMatch
+  case pingFotaCmdFailed
+  case queryFotaInfoFailedAfterRHO
+  case rhoRepeatlyProcessManyTimes
+  case fotaNotCompleted
+  case fail
+  case receiveSetMmiEnumRespDuringFota
+  case none
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class AirohaAudioChannelInfo : ObjectiveC.NSObject {
+  @objc public func getChannel() -> AirohaAudioChannel
+  @objc public func setChannel(audioChannel: AirohaAudioChannel)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum StatusCode : Swift.Int {
+  case STATUS_UNKNOWN = -1
+  case STATUS_SUCCESS = 0
+  case STATUS_TIMEOUT = 1
+  case STATUS_CANCEL = 2
+  case STATUS_FAIL = 3
+  public func getValue() -> Swift.Int
+  public func getDescription() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension AB1568 {
+  @objc public class AiroDeviceControl : ObjectiveC.NSObject, AirohaDeviceControl {
+    @objc public func getDeviceInfo(listener: AirohaDeviceListener? = nil)
+    @objc public func setDeviceName(name: Swift.String, listener: AirohaDeviceListener? = nil)
+    @objc public func getAncSetting(listener: AirohaDeviceListener? = nil)
+    @objc public func setAncSetting(anc: AirohaAncSettings, saveOrNot: Swift.Bool, listener: AirohaDeviceListener? = nil)
+    @objc public func getAutoPlayPauseStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setAutoPlayPauseStatus(enableOrNot: Swift.Bool, listener: AirohaDeviceListener? = nil)
+    @objc public func getAutoPowerOffStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setAutoPowerOffStatus(autoPowerOff: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getMultiAIStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setMultiAIStatus(ai: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getFindMyBuds(listener: AirohaDeviceListener? = nil)
+    @objc public func setFindMyBuds(myBudsInfo: AirohaMyBudsInfo, listener: AirohaDeviceListener? = nil)
+    @objc public func getGestureStatus(gestureId: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func setGestureStatus(gestureInfoList: [AirohaGestureInfo], listener: AirohaDeviceListener? = nil)
+    @objc public func resetGestureStatus(gesture: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getRunningOTAInfo(listener: AirohaDeviceListener? = nil)
+    @objc public func getTwsConnectStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func getSealingStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func getBatteryInfo(listener: AirohaDeviceListener? = nil)
+    @objc public func getFirmwareVer(listener: AirohaDeviceListener? = nil)
+    @objc public func getSmartSwitchStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setSmartSwitchStatus(musicSettings: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getTouchStatus(listener: AirohaDeviceListener? = nil)
+    @objc public func setTouchStatus(touchOnOff: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func getShareModeState(listener: AirohaDeviceListener? = nil)
+    @objc public func setShareMode(shareModeOnOff: Swift.Int, listener: AirohaDeviceListener? = nil)
+    @objc public func registerGlobalListener(listener: AirohaDeviceListener)
+    @objc public func unregisterGlobalListener(listener: AirohaDeviceListener)
+    @objc deinit
+  }
+}
+@objc public class AirohaOTAInfoMsg : AirohaBaseMsg {
+  @objc public init(otaInfo: AirohaOTAInfo)
+  @objc override public func getMsgID() -> AirohaMessageID
+  @objc override public func getMsgContent() -> AirohaOTAInfo
+  @objc override public init(_ id: AirohaMessageID, _ content: ObjectiveC.NSObject, _ push: Swift.Bool = super)
+  @objc deinit
+}
+infix operator <- : AdditionPrecedence
+@objc public class AirohaDeviceInfoMsg : AirohaBaseMsg {
+  @objc public init(deviceList: [AirohaDevice])
+  @objc override public func getMsgID() -> AirohaMessageID
+  @objc override public func getMsgContent() -> Foundation.NSArray
+  @objc override public init(_ id: AirohaMessageID, _ content: ObjectiveC.NSObject, _ push: Swift.Bool = super)
+  @objc deinit
+}
+@objc public class AirohaEQSettings : ObjectiveC.NSObject {
+  @objc public func getCategoryId() -> Swift.Int
+  @objc public func setCategoryId(id: Swift.Int)
+  @objc public func getStatus() -> Swift.Int
+  @objc public func setStatus(status: Swift.Int)
+  @objc public func getEqPayload() -> AirohaEQPayload?
+  @objc public func setEqPayload(eqPayload: AirohaEQPayload?)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum DeviceType : Swift.Int {
+  case Headset
+  case Earbuds
+  case UnKnown
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class AirohaSealingInfo : ObjectiveC.NSObject {
+  @objc public static let INVALID: Swift.Int
+  @objc public static let NOT_READY: Swift.Int
+  @objc public static let READY: Swift.Int
+  @objc public func getLeftSealing() -> Swift.Int
+  @objc public func setLeftSealing(leftSealing: Swift.Int)
+  @objc public func getRightSealing() -> Swift.Int
+  @objc public func setRightSealing(rightSealing: Swift.Int)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class AirohaMyBudsMsg : AirohaBaseMsg {
+  @objc public init(budsInfo: AirohaMyBudsInfo)
+  @objc override public func getMsgID() -> AirohaMessageID
+  @objc override public func getMsgContent() -> AirohaMyBudsInfo
+  @objc override public init(_ id: AirohaMessageID, _ content: ObjectiveC.NSObject, _ push: Swift.Bool = super)
+  @objc deinit
+}
+extension AB1568 {
+  @objc public enum FileSystemUpdate_FLOW : Swift.Int {
+    case _triggerRun
+    case getEDRLinkInfo
+    case disconnectClassic
+    case getLELinkStatus
+    case setConnectInterval
+    case dspSuspend
+    case queryPowerMode
+    case setNormalPowerMode
+    case queryFileSystemAddress
+    case unlock
+    case state_StartEraseFileSystem_0220_0x0221
+    case erase
+    case write
+    case setOrgPowerMode
+    case state_CompleteUpdateFileSystem_0222_0x0242
+    case lock
+    case reset
+    case count
+    case nvKeyUpdate
+    public var description: Swift.String {
+      get
+    }
+    public var simpleDescription: Swift.String {
+      get
+    }
+    public var isEnabled: Swift.Bool {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+}
+public struct AB1568 {
+}
+@objc public class AirohaGestureInfo : ObjectiveC.NSObject {
+  @objc public static let SINGLE_TAP_LEFT: Swift.Int
+  @objc public static let SINGLE_TAP_RIGHT: Swift.Int
+  @objc public static let DOUBLE_TAP_LEFT: Swift.Int
+  @objc public static let DOUBLE_TAP_RIGHT: Swift.Int
+  @objc public static let LONG_PRESS_LEFT: Swift.Int
+  @objc public static let LONG_PRESS_RIGHT: Swift.Int
+  @objc public static let TRIPLE_TAP_LEFT: Swift.Int
+  @objc public static let TRIPLE_TAP_RIGHT: Swift.Int
+  @objc public static let DLONG_LEFT: Swift.Int
+  @objc public static let DLONG_RIGHT: Swift.Int
+  @objc public static let LEFT_ALL: Swift.Int
+  @objc public static let RIGHT_ALL: Swift.Int
+  @objc public static let ALL: Swift.Int
+  @objc public static let ACTION_NONE: Swift.Int
+  @objc public static let VOLUME_UP: Swift.Int
+  @objc public static let VOLUME_DOWN: Swift.Int
+  @objc public static let ANC: Swift.Int
+  @objc public static let PASS_THROUGH: Swift.Int
+  @objc public static let NEXT_TRACK: Swift.Int
+  @objc public static let PREVIOUS_TRACK: Swift.Int
+  @objc public static let PLAY_PAUSE: Swift.Int
+  @objc public static let SWITCH_ANC_AND_PASSTHRU: Swift.Int
+  @objc public static let WAKE_UP_SIRI: Swift.Int
+  @objc public static let WAKE_UP_SIRI_NOTIFY: Swift.Int
+  @objc public static let GSOUND_CANCEL: Swift.Int
+  @objc public static let GSOUND_NOTIFY: Swift.Int
+  @objc public static let GSOUND_QUERY: Swift.Int
+  @objc public static let WAKE_UP_ALEXA_TAP: Swift.Int
+  @objc public static let WAKE_UP_ALEXA_HOLD: Swift.Int
+  @objc public static let WAKE_UP_XIAOWEI_TAP: Swift.Int
+  @objc public static let WAKE_UP_XIAOWEI_HOLD: Swift.Int
+  @objc public static let WAKE_UP_XIAOAI_TAP: Swift.Int
+  @objc public static let WAKE_UP_XIAOAI_HOLD: Swift.Int
+  @objc public static let SWITCH_EQ: Swift.Int
+  @objc public static let ACTION_DEFAULT: Swift.Int
+  @objc public static let SHARE_MODE_SWITCH: Swift.Int
+  @objc public static let SHARE_MODE_FOLLOWER_SWITCH: Swift.Int
+  @objc public func getGestureId() -> Swift.Int
+  @objc public func setGestureId(gestureId: Swift.Int)
+  @objc public func getActionId() -> Swift.Int
+  @objc public func setActionId(actionId: Swift.Int)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension AB1568 {
+  @objc public class FotaControl : ObjectiveC.NSObject, AirohaFOTAControl, ConnectivityModuleDelegate {
+    @objc public static let Inst: AB1568.FotaControl
+    @objc public func getDevice() -> AirohaDevice?
+    @objc public func getOtaConfig() -> RemoteOTAConfig
+    public func getOTAStatus() -> AirohaOTAStatus
+    @objc public func getOTAStatus_Objc() -> AirohaOTAStatus_Objc
+    @objc public func getCurrentProgress() -> Swift.Int
+    @objc public func isProcessingRhoOrCommit() -> Swift.Bool
+    @objc public func requestDFUInfo(type: FotaSettings.FotaTarget = .Dual) -> AirohaDFUInfo?
+    @objc public func requestROFSVersion(type: FotaSettings.FotaTarget = .Dual) -> AirohaROFSVersion?
+    @objc public func preTransferInit()
+    @objc public func startDataTransfer_Objc(fotaSettings: FotaSettings, listener: AirohaFOTAStatusListener_Objc) -> Swift.Bool
+    public func startDataTransfer(fotaSettings: FotaSettings, listener: AirohaFOTAStatusListener) -> Swift.Bool
+    public func startDataTransfer(dfuInfo: AirohaDFUInfo, listener: AirohaFOTAStatusListener) -> Swift.Bool
+    public func startDataTransfer(dfuInfo: AirohaDFUInfo, threshold: Swift.Int, allowBackground: Swift.Bool, listener: AirohaFOTAStatusListener) -> Swift.Bool
+    @objc public func stopDataTransfer() -> Swift.Bool
+    @objc public func postTransferCleanup()
+    @objc public func applyNewFirmware(threshold: Foundation.NSNumber? = nil) -> Swift.Bool
+    public func registerOTAStatusListener(listener: AirohaFOTAStatusListener)
+    public func unregisterOTAStatusListener(listener: AirohaFOTAStatusListener)
+    @objc public func registerOTAStatusListener_Objc(listener: AirohaFOTAStatusListener_Objc)
+    @objc public func unregisterOTAStatusListener_Objc(listener: AirohaFOTAStatusListener_Objc)
+    @objc public func onErrorReported(err_code: AirohaFotaError)
+    public func onErrorReported(err_code: AirohaFotaError, err_msg: Swift.String)
+    @objc public func onFotaCompleted()
+    @objc public func onSingleCommitCompleted()
+    @objc public func onDualCommitCompleted()
+    public func onFotaCommitCompleted()
+    @objc public func onRoleSwitchCompleted()
+    @objc public func onRoleSwitchActionCompleted()
+    @objc public func onUpdateNvrCompleted()
+    @objc public func onCancelCompleted()
+    @objc public func bleFoundCharacteristic(peripheral: CoreBluetooth.CBPeripheral, charList: [CoreBluetooth.CBCharacteristic], discoverAllSupportedService: Swift.Bool)
+    @objc public func iap2OpenChannel(session: ExternalAccessory.EASession, result: Swift.Bool)
+    @objc deinit
+  }
+}
+extension AB1568 {
+  @objc public enum FOTA_FLOW : Swift.Int {
+    case _triggerRun
+    case fotaStart
+    case checkBattery
+    case queryTransmitInterval
+    case getEDRLinkInfo
+    case disconnectClassic
+    case getLELinkInfo
+    case setConnectInterval
+    case queryPowerMode
+    case setNormalPowerMode
+    case queryFOTAAddress
+    case queryFileSystemAddress
+    case getFlashEraseStatus
+    case getSHA2561
+    case getSHA2562
+    case fotaInit
+    case unlock
+    case state_StartFOTAErase_0200
+    case erase
+    case state_CompleteFOTAErase_0201
+    case state_StartFOTAWrite_0210
+    case write
+    case setOrgPowerMode
+    case checkIntegrity
+    case state_CompleteIntegrityCheck_0211
+    case checkBatteryAgain
+    case count
+    case commit
+    case cancel
+    public var description: Swift.String {
+      get
+    }
+    public var simpleDescription: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+}
+@objc public class AirohaEQStatusMsg : AirohaBaseMsg {
+  @objc public init(msgId: AirohaMessageID, eqList: [AirohaEQSettings])
+  @objc override public func getMsgID() -> AirohaMessageID
+  @objc override public func getMsgContent() -> Foundation.NSArray
+  @objc override public init(_ id: AirohaMessageID, _ content: ObjectiveC.NSObject, _ push: Swift.Bool = super)
+  @objc deinit
+}
+infix operator => : AdditionPrecedence
+extension FileManager {
+  open func secureCopyItem(at srcURL: Foundation.URL, to dstURL: Foundation.URL) -> Swift.Bool
+}
+extension ChipType : Swift.Equatable {}
+extension ChipType : Swift.Hashable {}
+extension ChipType : Swift.RawRepresentable {}
+extension AirohaAudioChannel : Swift.Equatable {}
+extension AirohaAudioChannel : Swift.Hashable {}
+extension AirohaAudioChannel : Swift.RawRepresentable {}
+extension AirohaOTAChannel : Swift.Equatable {}
+extension AirohaOTAChannel : Swift.Hashable {}
+extension AirohaOTAChannel : Swift.RawRepresentable {}
+extension AirohaAncSettings.AncMode : Swift.Equatable {}
+extension AirohaAncSettings.AncMode : Swift.Hashable {}
+extension AirohaAncSettings.AncMode : Swift.RawRepresentable {}
+extension AirohaMessageID : Swift.Equatable {}
+extension AirohaMessageID : Swift.Hashable {}
+extension AirohaMessageID : Swift.RawRepresentable {}
+extension AB1568.TWS_FOTA_FLOW : Swift.Equatable {}
+extension AB1568.TWS_FOTA_FLOW : Swift.Hashable {}
+extension AB1568.TWS_FOTA_FLOW : Swift.RawRepresentable {}
+extension FotaSettings.FotaType : Swift.Equatable {}
+extension FotaSettings.FotaType : Swift.Hashable {}
+extension FotaSettings.FotaType : Swift.RawRepresentable {}
+extension FotaSettings.FotaTarget : Swift.Equatable {}
+extension FotaSettings.FotaTarget : Swift.Hashable {}
+extension FotaSettings.FotaTarget : Swift.RawRepresentable {}
+extension FotaSettings.FotaMode : Swift.Equatable {}
+extension FotaSettings.FotaMode : Swift.Hashable {}
+extension FotaSettings.FotaMode : Swift.RawRepresentable {}
+extension AirohaDFUInfo.FotaStage : Swift.Equatable {}
+extension AirohaDFUInfo.FotaStage : Swift.Hashable {}
+extension AirohaDFUInfo.FotaStage : Swift.RawRepresentable {}
+extension AirohaDFUInfo.FlashSize : Swift.Equatable {}
+extension AirohaDFUInfo.FlashSize : Swift.Hashable {}
+extension AirohaDFUInfo.FlashSize : Swift.RawRepresentable {}
+extension AirohaOTAStatus_Objc : Swift.Equatable {}
+extension AirohaOTAStatus_Objc : Swift.Hashable {}
+extension AirohaOTAStatus_Objc : Swift.RawRepresentable {}
+extension AirohaConnectStatus : Swift.Equatable {}
+extension AirohaConnectStatus : Swift.Hashable {}
+extension AirohaConnectStatus : Swift.RawRepresentable {}
+extension SAMPLE_RATE : Swift.Equatable {}
+extension SAMPLE_RATE : Swift.Hashable {}
+extension SAMPLE_RATE : Swift.RawRepresentable {}
+extension AirohaDeviceRole : Swift.Equatable {}
+extension AirohaDeviceRole : Swift.Hashable {}
+extension AirohaDeviceRole : Swift.RawRepresentable {}
+extension XCGLogger.LogLevel : Swift.Hashable {}
+extension XCGLogger.LogLevel : Swift.RawRepresentable {}
+extension AirohaDeviceProtocol : Swift.Equatable {}
+extension AirohaDeviceProtocol : Swift.Hashable {}
+extension AirohaDeviceProtocol : Swift.RawRepresentable {}
+extension AirohaShareModeInfo.ShareModeState : Swift.Equatable {}
+extension AirohaShareModeInfo.ShareModeState : Swift.Hashable {}
+extension AirohaShareModeInfo.ShareModeState : Swift.RawRepresentable {}
+extension AirohaFotaError : Swift.Equatable {}
+extension AirohaFotaError : Swift.Hashable {}
+extension AirohaFotaError : Swift.RawRepresentable {}
+extension StatusCode : Swift.Equatable {}
+extension StatusCode : Swift.Hashable {}
+extension StatusCode : Swift.RawRepresentable {}
+extension DeviceType : Swift.Equatable {}
+extension DeviceType : Swift.Hashable {}
+extension DeviceType : Swift.RawRepresentable {}
+extension AB1568.FileSystemUpdate_FLOW : Swift.Equatable {}
+extension AB1568.FileSystemUpdate_FLOW : Swift.Hashable {}
+extension AB1568.FileSystemUpdate_FLOW : Swift.RawRepresentable {}
+extension AB1568.FOTA_FLOW : Swift.Equatable {}
+extension AB1568.FOTA_FLOW : Swift.Hashable {}
+extension AB1568.FOTA_FLOW : Swift.RawRepresentable {}
